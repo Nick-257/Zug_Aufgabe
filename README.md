@@ -7,7 +7,7 @@ Um die Datei ausführbar zu machen bitte folgende Anleitung beachten:
 Im Ordner Release_Vx.zip (x steht für die Versionsnummer) befindet sich eine .doc und eine .xls Datei. 
 
 **Schritt 1:**
-Von dieser muss die Endung .doc in .exe geändert werden.
+Von der .doc Datei die Endung in .exe ändern.
 
 **Schritt 2:**
 Die enthaltene .xls Datei umbenennen in .exe.recipe
