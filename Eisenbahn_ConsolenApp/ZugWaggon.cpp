@@ -5,6 +5,9 @@
 #include <fstream>
 #include <vector>
 
+#include <chrono>
+#include <thread>
+
 #include "ZugWaggon.h"
 
 using namespace std;
@@ -95,7 +98,7 @@ string ZugWagon::getStatus(vector<int> ZugKonfiguration_data) {
 }
 
 bool ZugWagon::valideEingabeWagenTyp(int Num_WagonTyp, int Num_WagonNummer) {
-    if (Num_WagonTyp < 0) {
+    if (Num_WagonTyp <= 0) {
         cout << "Keine valide Angabe" << endl;
         return false;
     }
@@ -109,48 +112,75 @@ bool ZugWagon::valideEingabeWagenTyp(int Num_WagonTyp, int Num_WagonNummer) {
 }
 
 vector<int> ZugWagon::ZugManuellBauen() {
+    string SollKonfigGespeichertWerden = "Nein";
+    while (SollKonfigGespeichertWerden == "Nein") {
+        ZugWagon Wagon1(2, 4, 2);
+        ZugWagon Wagon2(3, 6, 3);
+        ZugWagon Wagon3(4, 8, 4);
 
-    ZugWagon Wagon1(2, 4, 2);
-    ZugWagon Wagon2(3, 6, 3);
-    ZugWagon Wagon3(4, 8, 4);
-
-    std::cout << "Aus wie vielen Wagons soll der Zug bestehen: ";
-    int WaggonAnzahl;
-    cin >> WaggonAnzahl;
-    while (!cin.good()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        std::cout << "\n\nAus wie vielen Wagons soll der Zug bestehen: (Bitte eine ganze Zahl angeben): ";
+        std::cout << "\nAus wie vielen Wagons soll der Zug bestehen: ";
+        int WaggonAnzahl;
         cin >> WaggonAnzahl;
-    }
-    std::cout << "Der Zug wird aus " << WaggonAnzahl << " Wagonteilen bestehen.\n\n" << endl;
-
-    std::cout << "Folgende WagonTypen stehen zur Auswahl:\n\n" << "WagonTyp 1: \nLaenge: 2 Meter, \nFenster: 4, \nAchsen: 2\n" <<
-        "\n\nWagonTyp 2: \nLaenge: 3 Meter, \nFenster: 6, \nAchsen: 3\n" <<
-        "\n\nWagonTyp 3: \nLaenge: 4 Meter, \nFenster: 8, \nAchsen: 4\n\n\n";
-
-    int WagonNummer = 1;
-    vector<int> ZugKonfiguration;
-    cout << "Bitte fuer alle Wagons im Folgenden den Typ festlegen!\n" << endl;
-    while (WagonNummer <= WaggonAnzahl) {
-        int WagonTyp;
-        cout << "Bitte fuer Wagon " << WagonNummer << " den WagonTyp eingeben (1, 2 oder 3): ";
-        cin >> WagonTyp;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         while (!cin.good()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Bitte korrigieren Sie die Eingabe (1, 2 oder 3): ";
-            cin >> WagonTyp;
+            std::cout << "\nAus wie vielen Wagons soll der Zug bestehen: (Bitte eine ganze Zahl angeben): ";
+            cin >> WaggonAnzahl;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
-        while (!valideEingabeWagenTyp(WagonTyp, WagonNummer)) {
-            cout << "Bitte korrigieren Sie fur Wagon " << WagonNummer << " die Eingabe des WagonTyp (1, 2 oder 3): ";
+        std::cout << "Der Zug wird aus " << WaggonAnzahl << " Wagonteilen bestehen.\n\n" << endl;
+
+        std::cout << "Folgende WagonTypen stehen zur Auswahl:\n\n" << "WagonTyp 1: \nLaenge: 2 Meter, \nFenster: 4, \nAchsen: 2\n" <<
+            "\n\nWagonTyp 2: \nLaenge: 3 Meter, \nFenster: 6, \nAchsen: 3\n" <<
+            "\n\nWagonTyp 3: \nLaenge: 4 Meter, \nFenster: 8, \nAchsen: 4\n\n\n";
+
+        int WagonNummer = 1;
+        vector<int> ZugKonfiguration;
+        cout << "Bitte fuer alle Wagons im Folgenden den Typ festlegen!\n" << endl;
+        while (WagonNummer <= WaggonAnzahl) {
+            int WagonTyp;
+            cout << "Bitte fuer Wagon " << WagonNummer << " den WagonTyp eingeben (1, 2 oder 3): ";
             cin >> WagonTyp;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            while (!cin.good()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Bitte korrigieren Sie die Eingabe (1, 2 oder 3): ";
+                cin >> WagonTyp;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+            while (!valideEingabeWagenTyp(WagonTyp, WagonNummer)) {
+                cout << "Bitte korrigieren Sie fur Wagon " << WagonNummer << " die Eingabe des WagonTyp (1, 2 oder 3): ";
+                cin >> WagonTyp;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+            WagonNummer++;
+            ZugKonfiguration.push_back(WagonTyp);
         }
-        WagonNummer++;
-        ZugKonfiguration.push_back(WagonTyp);
-    }
-    ZugWagon::ZugKonfigurationSpeichern(ZugKonfiguration);
-    return ZugKonfiguration;
+        cout << "\nSoll die Konfiguration gespeichert werden? (Ja/Nein): ";
+        getline(cin, SollKonfigGespeichertWerden);
+        if (SollKonfigGespeichertWerden == "Ja" || SollKonfigGespeichertWerden == "ja") {
+            ZugWagon::ZugKonfigurationSpeichern(ZugKonfiguration);
+            return ZugKonfiguration;
+        }
+        else if (SollKonfigGespeichertWerden == "Nein" || SollKonfigGespeichertWerden == "nein") {
+            cout << "\nSoll der Prozess ohne Speichern fortgesetzt werden? (Ja/Nein): ";
+            string SollFortgesetztWerden;
+            getline(cin, SollFortgesetztWerden);
+            if (SollFortgesetztWerden == "Ja" || SollFortgesetztWerden == "ja") {
+                return ZugKonfiguration;
+            }
+            else {
+                continue;
+            }
+        }
+        else {
+            cout << "\nFalsche Eingabe. Neustart der Konfiguration.\n" << endl;
+            this_thread::sleep_for(chrono::milliseconds(15000));
+            continue;
+        }
+    } 
 }
 
 bool ZugWagon::valideZugNamenEingabe(const char& RichtigeEingabe_data) {
@@ -224,7 +254,6 @@ bool ZugWagon::ZugNameSchonVergeben(const string& ZugNamenEingabe) {
 void ZugWagon::ZugKonfigurationSpeichern(const vector<int>& ZugKonfiguration_data) {
     cout << "Der Zug ist fertig zusammengestellt! Bitte geben Sie der Zug Konfiguration einen Namen: " << endl;
     string name;
-    cin.ignore();
     getline(std::cin, name);
     ifstream fileName("ZugName.txt");
     if (fileName.is_open()) {
@@ -253,4 +282,12 @@ void ZugWagon::ZugKonfigurationSpeichern(const vector<int>& ZugKonfiguration_dat
     }
     ZugKonfigTxt << endl;
     ZugKonfigTxt.close();
+}
+
+
+void ZugWagon::displayEnde() {
+    std::cout << "\n\n\nDer letzte Bahnhof wurde erreicht, alle Passagiere steigen hier aus!" << endl
+    << "\n\n\nVielen Dank und bis zum naechsten Mal!" << endl
+    << "\nDas Programm endet automatisch in 30 Sekunden." << endl;
+    this_thread::sleep_for(chrono::milliseconds(30000));
 }

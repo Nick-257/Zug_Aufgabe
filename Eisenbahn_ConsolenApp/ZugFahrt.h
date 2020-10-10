@@ -12,5 +12,8 @@ public:
 	std::string getStatus(std::vector<int> ZugKonfiguration_data);
 	std::vector<int> ZugZusammenStellen();
 	bool getValidUserInput(const std::string& input);
+	bool valideEingabe(unsigned Num_PassagiereOut, unsigned Num_Belegung);
+	void ZugFahrtModellierung(ZugFahrt F2, std::vector<int> ZugKonfiguration_data);
+	void printFahrt();
 };
 

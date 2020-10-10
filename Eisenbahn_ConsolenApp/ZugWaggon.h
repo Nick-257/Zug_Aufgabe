@@ -23,4 +23,5 @@ public:
     bool valideZugNamenEingabe(const char& RichtigeEingabe);
     bool ZugNameSchonVergeben(const std::string& ZugNamenEingabe);
     std::vector<std::string> getNamensVector();
+    void displayEnde();
 };
