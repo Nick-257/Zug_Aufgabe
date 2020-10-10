@@ -2,7 +2,9 @@ Um die Datei ausführbar zu machen bitte folgende Anleitung beachten:
 
 https://www.gtricks.com/gmail/2-simple-methods-to-send-executable-exe-files-through-gmail/
 
-Hiervon ist der 2. beschriebene Weg relevant. Im Ordner Release_Vx (x steht für die Versionsnummer) befindet sich eine .doc Datei. 
+Hiervon ist der 2. beschriebene Weg relevant. Im Ordner Release_Vx (x steht für die Versionsnummer) befindet sich eine .doc und eine .xls Datei. 
+
+***Schritt 1:
 Von dieser muss die Endung .doc in .exe geändert werden, um die Datei wieder ausführbar zu machen.
 
 Die enthaltene .xls Datei umbenennen in .exe.recipe
