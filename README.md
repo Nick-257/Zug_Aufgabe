@@ -24,7 +24,7 @@ https://www.gtricks.com/gmail/2-simple-methods-to-send-executable-exe-files-thro
 Hiervon ist der 2. beschriebene Weg relevant. 
 
 **2)**
-Falls die Dateitypen im Namen nicht im Windopws Explorer angezeigt werden: 
+Falls die Dateitypen im Namen nicht im Windows Explorer angezeigt werden: 
 Unter Ansicht -> auf der rechten Seite den Haken setzen bei "Dateinamenerweiterung".
 
 Mit Bildern zu sehen unter folgendem Link bei der Anleitung zur Umsetzung unter Windows 8 (auch für Windows 10 ist der
