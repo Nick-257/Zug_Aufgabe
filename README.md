@@ -4,9 +4,7 @@
 
 Um die Datei ausführbar zu machen bitte folgende Anleitung beachten:
 
-https://www.gtricks.com/gmail/2-simple-methods-to-send-executable-exe-files-through-gmail/
-
-Hiervon ist der 2. beschriebene Weg relevant. Im Ordner Release_Vx (x steht für die Versionsnummer) befindet sich eine .doc und eine .xls Datei. 
+Im Ordner Release_Vx.zip (x steht für die Versionsnummer) befindet sich eine .doc und eine .xls Datei. 
 
 **Schritt 1:**
 Von dieser muss die Endung .doc in .exe geändert werden.
@@ -18,6 +16,14 @@ Danach kann die Anwendung wieder wie gewohnt gestartet werden.
 
 Die Warnung, dass bei einer Änderung des Dateityps die Datei unbrauchbar wird, akzeptieren.
 
+
+## Weitere Infos:
+**1)**
+https://www.gtricks.com/gmail/2-simple-methods-to-send-executable-exe-files-through-gmail/
+
+Hiervon ist der 2. beschriebene Weg relevant. 
+
+**2)**
 Falls die Dateitypen im Namen nicht im Windopws Explorer angezeigt werden: 
 Unter Ansicht -> auf der rechten Seite den Haken setzen bei "Dateinamenerweiterung".
 
