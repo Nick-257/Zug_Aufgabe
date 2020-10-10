@@ -1,4 +1,4 @@
-# Anleitung um Zug_Aufgabe wieder ausführbar zu machen
+# Anleitung um Zug-Konfigurator wieder ausführbar zu machen
 
 ![alt text](https://github.com/Nick-257/Zug_Aufgabe/blob/main/Bilder/Zug_Bild.png?raw=true)
 
