@@ -4,10 +4,13 @@ https://www.gtricks.com/gmail/2-simple-methods-to-send-executable-exe-files-thro
 
 Hiervon ist der 2. beschriebene Weg relevant. Im Ordner Release_Vx (x steht für die Versionsnummer) befindet sich eine .doc und eine .xls Datei. 
 
-***Schritt 1:
-Von dieser muss die Endung .doc in .exe geändert werden, um die Datei wieder ausführbar zu machen.
+**Schritt 1:**
+Von dieser muss die Endung .doc in .exe geändert werden.
 
+**Schritt 2:**
 Die enthaltene .xls Datei umbenennen in .exe.recipe
+
+Danach kann die Anwendung wieder wie gewohnt gestartet werden.
 
 Die Warnung, dass bei einer Änderung des Dateityps die Datei unbrauchbar wird, akzeptieren.
 
