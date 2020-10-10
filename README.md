@@ -1,6 +1,6 @@
 # Anleitung um Zug_Aufgabe wieder ausführbar zu machen
 
-![alt text](https://github.com/Nick-257/Zug_Aufgabe/Bilder/Zug_bild.png?raw=true)
+![alt text](https://github.com/Nick-257/Zug_Aufgabe/blob/main/Bilder/Zug_Bild.png?raw=true)
 
 Um die Datei ausführbar zu machen bitte folgende Anleitung beachten:
 
