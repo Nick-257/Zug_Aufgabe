@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////////////////////////////
+// Name:        ZugWaggon.cpp
+// Purpose:     Konfiguration eines Zuges.
+// Author:      Niklas Dausch
+// Modified by: -
+// Created:     Oct/2020
+// Copyright:   (c) 2020, Nilas Dausch
+// Licence:     -
+/////////////////////////////////////////////////////////////////////////////
+
 #include <vector>
 #include <iostream>
 #include <string>
@@ -17,32 +27,34 @@ ZugWagon::ZugWagon() {
 }
 
 ZugWagon::ZugWagon(int WagonLaenge_, int AnzahlFenster_, int AnzahlAchsen_) {
+    // ZugWaegen besitzen die folgenden Eigenschaften.
         this->WagonLaenge_ = WagonLaenge_;
         this->AnzahlFenster_ = AnzahlFenster_;
         this->AnzahlAchsen_ = AnzahlAchsen_;
     }
 
-//void ZugWagon::WagonsInitialisiern() {
-//    ZugWagon Wagon1(2, 4, 2);
-//    ZugWagon Wagon2(3, 6, 3);
-//    ZugWagon Wagon3(4, 8, 4);
-//    Wagon3.printWagon();
-//
-//}
 
 void ZugWagon::printWagon() {
+    // Ausgabe der Informationen zu einem einzelnen ZugWaggon.
     cout << "WagonLaenge: " << WagonLaenge_ <<
         " AnzahlFenster: " << AnzahlFenster_ <<
         " AnzahlAchsen: " << AnzahlAchsen_ << endl;
 }
 
-int ZugWagon::getLaenge() { return WagonLaenge_; }
-int ZugWagon::getAchsen() { return AnzahlAchsen_; }
-int ZugWagon::getFenster() { return AnzahlFenster_; }
-
+// Rueckgabe einzelner Informationen zu den WagonTypen.
+int ZugWagon::getLaenge() { 
+    return WagonLaenge_;
+}
+int ZugWagon::getAchsen() { 
+    return AnzahlAchsen_;
+}
+int ZugWagon::getFenster() { 
+    return AnzahlFenster_;
+}
 
 
 string ZugWagon::getStatus(vector<int> ZugKonfiguration_data) {
+    // Status des Zuges erstellen. 
 
     stringstream result;
 
@@ -56,6 +68,8 @@ string ZugWagon::getStatus(vector<int> ZugKonfiguration_data) {
     vector<string> ZugAufbau;
     ZugAufbau.push_back("Lok");
     int Wagennummer = 1;
+    // Fuer die einzelnen angegeben WagenTypen wird die jeweilige Information abgerufen und der Gesamtuebersicht
+    // hinzugefuegt.
     for (unsigned wagon = 0; wagon < ZugKonfiguration_data.size(); wagon++) {
         if (ZugKonfiguration_data.at(wagon) == 1) {
             Fensteranzahl += Wagon1.getFenster();
@@ -88,6 +102,7 @@ string ZugWagon::getStatus(vector<int> ZugKonfiguration_data) {
             continue;
         }
     }
+    // Speichern der Gesamtinformationen.
     result << "Der Zug hat folgenden Aufbau:" << endl;
     std::copy(ZugAufbau.begin(), ZugAufbau.end(), std::ostream_iterator<std::string>(result, " "));
     result << "\n\n" << "Der Zug hat " << Fensteranzahl << " Fenster." << endl;
@@ -98,6 +113,7 @@ string ZugWagon::getStatus(vector<int> ZugKonfiguration_data) {
 }
 
 bool ZugWagon::valideEingabeWagenTyp(int Num_WagonTyp, int Num_WagonNummer) {
+    // Falsche Eingaben bei der Konfiguration der Wagentypen abfangen.
     if (Num_WagonTyp <= 0) {
         cout << "Keine valide Angabe" << endl;
         return false;
@@ -112,8 +128,10 @@ bool ZugWagon::valideEingabeWagenTyp(int Num_WagonTyp, int Num_WagonNummer) {
 }
 
 vector<int> ZugWagon::ZugManuellBauen() {
+    // Manueller Konfigurator eines einzelnen Zuges.
     string SollKonfigGespeichertWerden = "Nein";
     while (SollKonfigGespeichertWerden == "Nein") {
+        // Initialisieren der WagonTypen, die zur Verfuegung stehen.
         ZugWagon Wagon1(2, 4, 2);
         ZugWagon Wagon2(3, 6, 3);
         ZugWagon Wagon3(4, 8, 4);
@@ -130,11 +148,14 @@ vector<int> ZugWagon::ZugManuellBauen() {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
         std::cout << "Der Zug wird aus " << WaggonAnzahl << " Wagonteilen bestehen.\n\n" << endl;
-
+        // Ausgabe und Uebersicht der verfuegbaren WagenTypen.
         std::cout << "Folgende WagonTypen stehen zur Auswahl:\n\n" << "WagonTyp 1: \nLaenge: 2 Meter, \nFenster: 4, \nAchsen: 2\n" <<
             "\n\nWagonTyp 2: \nLaenge: 3 Meter, \nFenster: 6, \nAchsen: 3\n" <<
             "\n\nWagonTyp 3: \nLaenge: 4 Meter, \nFenster: 8, \nAchsen: 4\n\n\n";
 
+
+        // Festlegung des WagenTyps fuer jeden einzelnen Wagen.
+        // Somit kann auch die Reihung der Wagen erfasst werden.
         int WagonNummer = 1;
         vector<int> ZugKonfiguration;
         cout << "Bitte fuer alle Wagons im Folgenden den Typ festlegen!\n" << endl;
@@ -158,6 +179,7 @@ vector<int> ZugWagon::ZugManuellBauen() {
             WagonNummer++;
             ZugKonfiguration.push_back(WagonTyp);
         }
+        // Die Konfiguration kann mit Eingabe von "Ja" abgespeichert werden.
         cout << "\nSoll die Konfiguration gespeichert werden? (Ja/Nein): ";
         getline(cin, SollKonfigGespeichertWerden);
         if (SollKonfigGespeichertWerden == "Ja" || SollKonfigGespeichertWerden == "ja") {
@@ -165,6 +187,7 @@ vector<int> ZugWagon::ZugManuellBauen() {
             return ZugKonfiguration;
         }
         else if (SollKonfigGespeichertWerden == "Nein" || SollKonfigGespeichertWerden == "nein") {
+            // Wird "Nein" gewaehlt, kann die ZugFahrt auch mit einer einmaligen Konfiguration gestartet werden.
             cout << "\nSoll der Prozess ohne Speichern fortgesetzt werden? (Ja/Nein): ";
             string SollFortgesetztWerden;
             getline(cin, SollFortgesetztWerden);
@@ -176,6 +199,7 @@ vector<int> ZugWagon::ZugManuellBauen() {
             }
         }
         else {
+            // Ist dies auch nicht gewuenscht, muss das Prigramm von vorne begonnen werden.
             cout << "\nFalsche Eingabe. Neustart der Konfiguration.\n" << endl;
             this_thread::sleep_for(chrono::milliseconds(15000));
             continue;
@@ -184,6 +208,7 @@ vector<int> ZugWagon::ZugManuellBauen() {
 }
 
 bool ZugWagon::valideZugNamenEingabe(const char& RichtigeEingabe_data) {
+    // Validitaetscheck der Nutzereinbgabe.
     if (RichtigeEingabe_data != 'Y') {
         return false;
     }
@@ -193,6 +218,7 @@ bool ZugWagon::valideZugNamenEingabe(const char& RichtigeEingabe_data) {
 }
 
 vector<string> ZugWagon::getNamensVector() {
+    // Erstellen des Vectors, der die Informationen zu den verfuegbaren/vergebenen Zugkonfigurationsnamen hat.
     ifstream file("ZugName.txt");
     string line;
     vector<string> ZugNamen;
@@ -205,10 +231,12 @@ vector<string> ZugWagon::getNamensVector() {
 }
 
 unsigned ZugWagon::getLoadLine() {
+    // Welche Zeile der Konfiguration soll geladen werden, um die Zugfahrt zu beginnen.
     ifstream file("ZugName.txt");
     string line;
     int counter_lines = 0;
     vector<string> ZugNamen = getNamensVector();
+    // Ausgabe der Konfigurationen, die gespeichert wurden.
     cout << "Verfuegbare Zugkonfigurationen: " << endl;
     for (unsigned i = 0; i < ZugNamen.size(); i++) {
         cout << ZugNamen.at(i) << endl;
@@ -238,6 +266,7 @@ unsigned ZugWagon::getLoadLine() {
 }
 
 bool ZugWagon::ZugNameSchonVergeben(const string& ZugNamenEingabe) {
+    // Check, ob der eingegeben Name schon einmal verwendet wurde, um doppelte Namensbelegungen zu verhindern.
     vector<string> ZugNamen = getNamensVector();
 
     for (unsigned i = 0; i < ZugNamen.size(); i++) {
@@ -252,6 +281,7 @@ bool ZugWagon::ZugNameSchonVergeben(const string& ZugNamenEingabe) {
 }
 
 void ZugWagon::ZugKonfigurationSpeichern(const vector<int>& ZugKonfiguration_data) {
+    // Abspeichern der Konfiguration.
     cout << "Der Zug ist fertig zusammengestellt! Bitte geben Sie der Zug Konfiguration einen Namen: " << endl;
     string name;
     getline(std::cin, name);
@@ -270,12 +300,12 @@ void ZugWagon::ZugKonfigurationSpeichern(const vector<int>& ZugKonfiguration_dat
     } else {
         int ZahlPuffer = 0;
     }
-
+    // Speichern des Namens.
     cout << "Die Konfiguration wurde unter dem Namen " << name << " gespeichert!\n" << endl;
     std::ofstream ZugNameTxt("ZugName.txt", std::ios_base::app);
     ZugNameTxt << name << endl;
     ZugNameTxt.close();
-
+    // Speichern der Konfiguration.
     std::ofstream ZugKonfigTxt("ZugKonfig.txt", std::ios_base::app);
     for (vector<int>::const_iterator i = ZugKonfiguration_data.begin(); i != ZugKonfiguration_data.end(); ++i) {
         ZugKonfigTxt << *i;
@@ -286,8 +316,9 @@ void ZugWagon::ZugKonfigurationSpeichern(const vector<int>& ZugKonfiguration_dat
 
 
 void ZugWagon::displayEnde() {
+    // Ausgabe der Endsequenz.
     std::cout << "\n\n\nDer letzte Bahnhof wurde erreicht, alle Passagiere steigen hier aus!" << endl
     << "\n\n\nVielen Dank und bis zum naechsten Mal!" << endl
-    << "\nDas Programm endet automatisch in 30 Sekunden." << endl;
-    this_thread::sleep_for(chrono::milliseconds(30000));
+    << "\nDas Programm endet automatisch in 15 Sekunden." << endl;
+    this_thread::sleep_for(chrono::milliseconds(15000));
 }
